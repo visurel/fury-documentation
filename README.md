@@ -137,7 +137,7 @@ Everything shown in the demo can also be customized and most things are generate
 
 Menu Items can be added in runtime by importing the `SidenavService` and adding menu items there. Here's an example:
 ```typescript
-export TestComponent {
+export class TestComponent {
   constructor(
     private sidenavService: SidenavService
   ) {
@@ -168,7 +168,7 @@ sidenavService.addSubItem(referenceToParentItem (as shown in the example above),
 
 Breadcrumbs are generated automatically from the current route, but you can also add custom user-friendly names. Adding "friendly names" for routes is done like this:
 ```typescript
-export TestComponent {
+export class TestComponent {
   constructor(
     private breadcrumbService: BreadcrumbService
   ) {
