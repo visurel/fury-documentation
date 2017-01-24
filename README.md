@@ -143,9 +143,12 @@ In our theme we use various different external libraries. All of these libraries
 * [Perfect Scrollbar](//noraesae.github.io/perfect-scrollbar/) - Simple and perfect scrollbar, working cross-browser.
 * [Perfect Scrollbar - Angular 2 Wrapper](//github.com/zefoy/angular2-perfect-scrollbar) - Wrapper for Perfect Scrollbar to be used as directive.
 * [Lodash](//lodash.com/) - "A modern JavaScript utility library delivering modularity, performance & extras."
+* [Roboto Font](//fonts.google.com/specimen/Roboto) - Google's official Material Design Typography font.
+* [Google Maps for Angular2](https://github.com/SebastianM/angular2-google-maps) - Google's official Material Design Typography font.
 
 ### Assets
 
-* All Avatars used are from [Adorable Avatars](//github.com/adorableio/avatars-api) licensed MIT and can therefore be also used in your application.
-* Backgrounds used are from [Oxygenna](//www.oxygenna.com/news/brand-new-set-of-40-material-design-backgrounds). Marked as "Free to use in commercial projects".
+* All Avatars used are from [Adorable Avatars](//github.com/adorableio/avatars-api) licensed MIT and can therefore be also used in your application and are included in the download.
+* Backgrounds used are from [Oxygenna](//www.oxygenna.com/news/brand-new-set-of-40-material-design-backgrounds). Marked as "Free to use in commercial projects" and can therefore not be bundled in the download, but can easily be added afterwards.
 
+All other assets shown in the demo are included in the download.
