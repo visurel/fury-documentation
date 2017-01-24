@@ -135,4 +135,17 @@ In our theme we use various different external libraries. All of these libraries
 
 * [Angular Material 2](//github.com/angular/material2) - Awesome library for Material Components and core component in our theme.
 * [Google Material Icons](//material.io/icons/) - Simply the best Material Icons out there.
+* [RxJS](//github.com/ReactiveX/rxjs) - Angular 2 Dependency - A new approach to how data can be handled in Observables.
 * [HighlightJS](//highlightjs.org/) - Simple Syntax highlighting. Our theme includes a directive to apply the highlighting quickly to `<code>` blocks.
+* [Normalize.css](//necolas.github.io/normalize.css/) - Convenient reset of browser-specific styles to industry-standard styling.
+* [D3.js](//d3js.org/) - Create advanced charts, completely customizable.
+* [nvD3](//nvd3.org/) - Wrapper for D3.js charts, simple configuration -> advanced charts.
+* [Perfect Scrollbar](//noraesae.github.io/perfect-scrollbar/) - Simple and perfect scrollbar, working cross-browser.
+* [Perfect Scrollbar - Angular 2 Wrapper](//github.com/zefoy/angular2-perfect-scrollbar) - Wrapper for Perfect Scrollbar to be used as directive.
+* [Lodash](//lodash.com/) - "A modern JavaScript utility library delivering modularity, performance & extras."
+
+### Assets
+
+* All Avatars used are from [Adorable Avatars](//github.com/adorableio/avatars-api) licensed MIT and can therefore be also used in your application.
+* Backgrounds used are from [Oxygenna](//www.oxygenna.com/news/brand-new-set-of-40-material-design-backgrounds). Marked as "Free to use in commercial projects".
+
