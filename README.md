@@ -72,7 +72,7 @@ The files `client.component.ts` and `client.component.spec.ts` contain the most 
 
 **client.component.ts**
 
-```language-typescript
+```typescript
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -109,7 +109,7 @@ Or anything you need.
 Afterward we will find two generated files in our specified folder: `client.service.ts` and `client.service.spec.ts`.
 
 **client.service.ts**
-```language-typescript
+```typescript
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -123,8 +123,16 @@ export class ClientService {
 
 Now that we have generated our components, we sure want to see how the result will look like. Luckily Angular-CLI comes pre-configured with a **Live Compile and Reload Server** for which you simply have to run `ng serve` and after a few seconds your site will be live at `http://localhost:4200`.
 
-![app works](images/demo.png)
+![demo image](images/demo.png)
 
 All changes you now make to your app will automatically be compiled and your open browser window will be reloaded.
 
 These were the first steps with the awesome Angular-CLI and Angular2. Following we are going to get more in detail about developing with Angular-CLI and using the power of Angular2 right.
+
+## Credits
+
+In our theme we use various different external libraries. All of these libraries have their own complete documentation which can help you develop. In this section we list links to those libraries.
+
+* [Angular Material 2](//github.com/angular/material2) - Awesome library for Material Components and core component in our theme.
+* [Google Material Icons](//material.io/icons/) - Simply the best Material Icons out there.
+* [HighlightJS](//highlightjs.org/) - Simple Syntax highlighting. Our theme includes a directive to apply the highlighting quickly to `<code>` blocks.
