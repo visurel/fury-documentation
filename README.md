@@ -129,6 +129,57 @@ All changes you now make to your app will automatically be compiled and your ope
 
 These were the first steps with the awesome Angular-CLI and Angular2. Following we are going to get more in detail about developing with Angular-CLI and using the power of Angular2 right.
 
+## Customizing
+
+Everything shown in the demo can also be customized and most things are generated dynamically, for example the navigation menu.
+
+### Add a Menu Item
+
+Menu Items can be added in runtime by importing the `SidenavService` and adding menu items there. Here's an example:
+```typescript
+export TestComponent {
+  constructor(
+    private sidenavService: SidenavService
+  ) {
+    let components = sidenavService.addItem('Components', 'layers', '/components', 2);
+                     sidenavService.addSubItem(components, 'Buttons', '/components/buttons', 1);
+   }
+}
+```
+
+The function `addItem` accepts 4 parameters:
+```typescript
+sidenavService.addItem('The name shown in the navigation menu',
+                       'the material icon to be used', 
+                       'the route to put in [routerLink]',
+                       'position in menu as number');
+```
+
+To create a dropdown menu with sub-items you can use the `addSubItem` function. The parameters are similar:
+```typescript
+sidenavService.addSubItem(referenceToParentItem (as shown in the example above),
+                       'The name shown in the navigation menu',
+                       'the material icon to be used', 
+                       'the route to put in [routerLink]',
+                       'position in sub-menu as number');
+```
+
+### Breadcrumbs
+
+Breadcrumbs are generated automatically from the current route, but you can also add custom user-friendly names. Adding "friendly names" for routes is done like this:
+```typescript
+export TestComponent {
+  constructor(
+    private breadcrumbService: BreadcrumbService
+  ) {
+    breadcrumbService.addFriendlyNameForRoute('/components', "Components");
+    breadcrumbService.addFriendlyNameForRoute('/components/buttons', "Buttons");
+   }
+}
+```
+
+The first parameter is the route to name, the second is the new breadcrumb name for this route.
+
 ## Credits
 
 In our theme we use various different external libraries. All of these libraries have their own complete documentation which can help you develop. In this section we list links to those libraries.
@@ -144,11 +195,11 @@ In our theme we use various different external libraries. All of these libraries
 * [Perfect Scrollbar - Angular 2 Wrapper](//github.com/zefoy/angular2-perfect-scrollbar) - Wrapper for Perfect Scrollbar to be used as directive.
 * [Lodash](//lodash.com/) - "A modern JavaScript utility library delivering modularity, performance & extras."
 * [Roboto Font](//fonts.google.com/specimen/Roboto) - Google's official Material Design Typography font.
-* [Google Maps for Angular2](https://github.com/SebastianM/angular2-google-maps) - Google's official Material Design Typography font.
+* [Google Maps for Angular2](//github.com/SebastianM/angular2-google-maps) - Google's official Material Design Typography font.
 
 ### Assets
 
 * All Avatars used are from [Adorable Avatars](//github.com/adorableio/avatars-api) licensed MIT and can therefore be also used in your application and are included in the download.
 * Backgrounds used are from [Oxygenna](//www.oxygenna.com/news/brand-new-set-of-40-material-design-backgrounds). Marked as "Free to use in commercial projects" and can therefore not be bundled in the download, but can easily be added afterwards.
 
-All other assets shown in the demo are included in the download.
+All other assets shown in the demo are included in the download. All external libraries are usually loaded with `npm install`, except "HighlightJS", which is bundled.
