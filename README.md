@@ -5,6 +5,8 @@ Fury is a creative material design admin template built with Angular 2 and the A
 
 Support is available through email, ThemeForest comments or chat. If you purchased the theme and love it, consider giving it a 5-star rating here on ThemeForest. It really helps pushing out more updates and adding more great features.
 
+## Table of Contents
+
    * [Fury - Angular 2 Material Design Admin Template](#fury---angular-2-material-design-admin-template)
       * [Introduction](#introduction)
       * [Getting Started](#getting-started)
