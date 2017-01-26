@@ -5,6 +5,23 @@ Fury is a creative material design admin template built with Angular 2 and the A
 
 Support is available through email, ThemeForest comments or chat. If you purchased the theme and love it, consider giving it a 5-star rating here on ThemeForest. It really helps pushing out more updates and adding more great features.
 
+   * [Fury - Angular 2 Material Design Admin Template](#fury---angular-2-material-design-admin-template)
+      * [Introduction](#introduction)
+      * [Getting Started](#getting-started)
+         * [Folder Structure](#folder-structure)
+         * [Using Angular-CLI](#using-angular-cli)
+         * [Prerequisites](#prerequisites)
+         * [Installing Angular-CLI](#installing-angular-cli)
+         * [Generating the first Component](#generating-the-first-component)
+         * [Generating a Service in a specific folder](#generating-a-service-in-a-specific-folder)
+         * [Live-Preview and App-Start](#live-preview-and-app-start)
+      * [Customizing](#customizing)
+         * [Add a Menu Item](#add-a-menu-item)
+         * [Breadcrumbs](#breadcrumbs)
+         * [Receive, send and map data to a server with GET and POST requests](#receive-send-and-map-data-to-a-server-with-get-and-post-requests)
+      * [Credits](#credits)
+         * [Assets](#assets)
+
 ## Getting Started
 
 In this section you will find the basic folder structure and everything you need to get the theme up and running the first time to start developing.
@@ -179,6 +196,204 @@ export class TestComponent {
 ```
 
 The first parameter is the route to name, the second is the new breadcrumb name for this route.
+
+### Receive, send and map data to a server with GET and POST requests
+
+Receiving data from a server to process or display it in Angular 2 can be quite tricky with the new observables and syntax. Here you'll find an example how you can do this.
+
+First of all create an abstract `BaseService` where you configure your Backend-URL and the correct paths for your backend.
+
+**base.service.ts**
+```typescript
+import { Http, Headers } from '@angular/http';
+import { Inject, Injectable } from '@angular/core';
+import 'rxjs/add/operator/map';
+
+@Injectable()
+export abstract class BaseService {
+  config: String;
+  http:   Http;
+  modelName: string;
+  model: any;
+
+  constructor(@Inject(Http) http: Http) {
+    this.http   = http;
+    this.config = 'http://yourBackend.url'
+  }
+
+  mapListToModelList (list: Array<Object>) {
+    list.forEach((item, index) => {
+      list[index] = this.mapModel(item);
+    });
+
+    return list;
+  }
+
+  mapModel(model: any) {
+    return this.model(model);
+  }
+
+  findById(id: number, populate: Array<string> = null) {
+    return new Promise((resolve, reject) => {
+      let url = this.config + '/' + this.modelName + '/' + id;
+
+      if (populate) {
+        url = url + '?populate=' + populate.join(', ');
+      }
+
+      console.log('URL', url);
+
+      this.http.get(url)
+        .map(res => res.json())
+        .subscribe(res => {
+          if (res.error) {
+            reject(res.error);
+          } else {
+            resolve(this.mapModel(res));
+          }
+        });
+    });
+  }
+
+  find(populate: Array<string> = null) {
+    return new Promise((resolve, reject) => {
+      let url = this.config + '/' + this.modelName;
+
+      if (populate) {
+        url = url + '?populate=' + populate.join(', ');
+      }
+
+      this.http.get(url)
+        .map(res => res.json())
+        .subscribe(res => {
+          if (res.error) {
+            reject(res.error);
+          } else {
+            resolve(this.mapListToModelList(res));
+          }
+        });
+    });
+  }
+
+  upsert(model: any) {
+    return new Promise((resolve, reject) => {
+      let url = this.config + '/api/' + this.modelName;
+
+      var headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      headers.append('Accept', 'application/json');
+
+      this.http.put(url, JSON.stringify(model), {headers : headers})
+        .map(res => res.json())
+        .subscribe(res => {
+          console.log(res);
+          if (res.error) {
+            reject(res.error);
+          } else {
+            resolve(this.mapModel(res));
+          }
+        });
+    });
+  }
+
+  create(model: any) {
+    return new Promise((resolve, reject) => {
+      let url = this.config + '/' + this.modelName;
+
+      var headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      headers.append('Accept', 'application/json');
+
+      this.http.post(url, JSON.stringify(model), {headers : headers})
+        .map(res => res.json())
+        .subscribe(res => {
+          console.log(res);
+          if (res.error) {
+            reject(res.error);
+          } else {
+            resolve(this.mapModel(res));
+          }
+        });
+    });
+  }
+}
+```
+
+Then you'll need a more specific service, in this example it's called `CustomerService`. This Service `extends` the `BaseService` inheriting all it's functions.
+ 
+You will need to define a variable `modelName` which will appear in the called GET path in `BaseService`.
+
+**customer.service.ts**
+```typescript
+import { Injectable, Inject } from '@angular/core';
+import { Http } from "@angular/http";
+import { BaseService } from "../../shared/base.service";
+import { Customer } from "./customer.model";
+
+@Injectable()
+export class CustomerService extends BaseService {
+  model: any;
+  modelName = 'customer';
+
+  constructor(@Inject(Http) http:Http) {
+    super(http);
+
+    this.model = (construct: any) => {
+      return new Customer(construct);
+    };
+  }
+}
+```
+
+Before using the data, you should map it as a class, so Typescript knows what it is and you know later on too.
+This is a sample `Customer` class.
+
+**customer.model.ts**
+```typescript
+export class Customer {
+  firstName: string;
+  lastName: string;
+
+  constructor(model: any = null) {
+    if (model) {
+      this.firstName = model.firstName;
+      this.lastName = model.lastName;
+    }
+  }
+}
+```
+
+Last but not least you can finally inject the `CustomerService` and call one of these functions:
+- `.find()` => GET to http://yourBackend.url/customer -> returns Array of Customers
+- `.findById(1)` => GET to http://yourBackend.url/customer/1 -> returns single Customer Object
+- `.create(model)` => POST to http://yourBackend.url/customer
+- `.upsert(model)` => UPDATE to http://yourBackend.url/customer
+
+**customer.component.ts**
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { CustomerService } from "../shared/customer.service";
+import { Customer } from "../shared/customer.model";
+
+@Component({
+  selector: 'app-customer',
+  templateUrl: './customer.component.html',
+  styleUrls: ['./customer.component.css']
+})
+export class CustomerComponent implements OnInit {
+  customers: Customer[] = [ ];
+
+  constructor(private customerService: CustomerService) { }
+
+  ngOnInit() {
+    this.customerService.find().then((customers) => {
+      this.customers = customers;
+    });
+  }
+}
+```
+
+Note: You may need to adjust the `import` paths according to your directory structure.
 
 ## Credits
 
