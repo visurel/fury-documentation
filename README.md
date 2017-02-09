@@ -21,6 +21,7 @@ Support is available through email, ThemeForest comments or chat. If you purchas
          * [Add a Menu Item](#add-a-menu-item)
          * [Breadcrumbs](#breadcrumbs)
          * [Receive, send and map data to a server with GET and POST requests](#receive-send-and-map-data-to-a-server-with-get-and-post-requests)
+         * [URL mapping on an Apache Server](#url-mapping-on-an-apache-server)
       * [Credits](#credits)
          * [Assets](#assets)
 
@@ -397,7 +398,7 @@ export class CustomerComponent implements OnInit {
 
 Note: You may need to adjust the `import` paths according to your directory structure.
 
-### URL mapping on an Apache Server (ng build)
+### URL mapping on an Apache Server
 
 To allow for the URL to automatically route to the appropriate component on an Apache server like the internal `ng serve` server, you need to create a .htaccess file that routes all requests to the `index.html` file.
 
