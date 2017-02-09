@@ -397,6 +397,27 @@ export class CustomerComponent implements OnInit {
 
 Note: You may need to adjust the `import` paths according to your directory structure.
 
+### URL mapping on an Apache Server (ng build)
+
+To allow for the URL to automatically route to the appropriate component on an Apache server like the internal `ng serve` server, you need to create a .htaccess file that routes all requests to the `index.html` file.
+
+Here is an example how we did it on our demo-page:
+```.htaccess
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+```
+
+Note: We're using https, if you don't have or need https, remove the `s` from `https://` and the `RewriteCond` with `%{HTTPS} off`.
+
 ## Credits
 
 In our theme we use various different external libraries. All of these libraries have their own complete documentation which can help you develop. In this section we list links to those libraries.
