@@ -70,9 +70,9 @@ If you are on a *UNIX environment, you might have to run the command as administ
 ###Installing Angular-CLI
 Installing Angular-CLI is as simple as running this simple command:
 
-`npm install -g angular-cli@latest`  
+`npm install -g @angular/cli@latest`  
 or
-`sudo npm install -g angular-cli@latest`
+`sudo npm install -g @angular/cli@latest`
 
 and the package manager `npm` will do the rest.
 
